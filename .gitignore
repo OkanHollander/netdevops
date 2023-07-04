@@ -1,0 +1,4 @@
+*.code-workspace
+extensions.json
+settings.json
+.DS_Store
