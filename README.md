@@ -2,12 +2,21 @@
 
 This Project is from the book Automating and Orchestrating Networks with NetDevOps
 
-## Notes
+## Python virtual environment
+Create a new virtual environment
+```
+python3 -m virtualenv .venv
+```
+Activate the virtual environment
+```
+source .venv/bin/activate
+```
 The `requirements.txt` file should list all Python libraries that are needed for this project.
 Use the following cmd in the CLI to install them:
 ```
 python3 -m install -r requirements.txt
 ```
+&nbsp;
 
 # Jenkins installation with docker
 Create a local folder to store jenkins data to be mapped with the container:
