@@ -1,4 +1,4 @@
-## NetDevOps
+# NetDevOps
 
 This Project is from the book Automating and Orchestrating Networks with NetDevOps
 
@@ -9,6 +9,15 @@ Use the following cmd in the CLI to install them:
 python3 -m install -r requirements.txt
 ```
 
+# Jenkins installation with docker
+Create a local folder to store jenkins data to be mapped with the container:
+```
+mkdir jenkins_home 
+```
+Use docker-compose to spin up the docker container
+```
+docker-compose up
+```
 ## Jenkins Pipeline overview
 ```
  ___________________________________
@@ -43,4 +52,3 @@ python3 -m install -r requirements.txt
 │   │  └─────────────────────┘ │    │
 │   └──────────────────────────┘    │
 \___________________________________/
-```
