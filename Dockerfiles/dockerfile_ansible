@@ -1,0 +1,13 @@
+FROM alpine:3.11
+
+# install packages
+RUN apk add ansible gcc python3-dev libc-dev libffi-dev openssl-dev py3-pip git libssh-dev
+RUN pip3 install paramiko ansible-pylibssh
+
+# install ansible-galaxy collections
+RUN ansible-galaxy collection install cisco.nxos
+RUN ansible-galaxy collection install cisco.ios
+RUN ansible-galaxy collection install arubanetworks.aoscx
+
+# environment variables
+ENV ANSIBLE_HOST_KEY_CHECKING=false
