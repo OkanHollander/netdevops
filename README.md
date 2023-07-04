@@ -10,6 +10,7 @@ python3 -m install -r requirements.txt
 ```
 
 ## Jenkins Pipeline overview
+```
  ___________________________________
 /                                   \
 │  Stages                           │
@@ -42,3 +43,4 @@ python3 -m install -r requirements.txt
 │   │  └─────────────────────┘ │    │
 │   └──────────────────────────┘    │
 \___________________________________/
+```
