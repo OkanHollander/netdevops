@@ -1,0 +1,20 @@
+---
+- name: PLAYBOOK TO GATHER IP ADDRESSES FROM INTERFACES
+  hosts: cisco_ios
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: TASK I - Gather facts
+      cisco.ios.ios_facts:
+        gather_network_resources:
+          - 'interfaces'
+        gather_subset:
+          - 'all'
+      register: output
+
+    - name: TASK II - Print output
+      ansible.builtin.debug:
+        msg: "{{ ansible_host }}'s {{ item.key }} ip address is {{ item.value.ipv4[0].address }}"
+      loop: "{{ output['ansible_facts']['ansible_net_interfaces'] | dict2items }}"
+      when: item.value.ipv4 | length > 0
