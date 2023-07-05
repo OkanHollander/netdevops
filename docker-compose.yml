@@ -3,7 +3,7 @@ version: '3'
 services:
   jenkins:
     container_name: my_jenkins
-    image: jenkins/jenkins:lts-jdk11
+    image: 0kanh0llander/jenkins-docker:latest
     ports:
       - "8080:8080"
       - "50000:50000"
