@@ -1,8 +1,11 @@
 FROM alpine:3.11
 
 # install packages
-RUN apk add ansible ansible-lint gcc python3-dev libc-dev libffi-dev openssl-dev py3-pip git libssh-dev
-RUN pip3 install paramiko ansible-pylibssh
+RUN apk add ansible-lint gcc python3-dev libc-dev libffi-dev openssl-dev py3-pip git libssh-dev
+RUN pip3 install paramiko
+
+# update ansible
+RUN pip3 install ansible
 
 # install ansible-galaxy collections
 RUN ansible-galaxy collection install cisco.nxos
