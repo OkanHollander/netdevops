@@ -11,7 +11,12 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Test stage'
-                sh "docker exec -i ansible_git /bin/sh -c 'ansible-lint Playbooks/cisco_ios/intf_ip_address.yml'"
+                sh "docker exec -i ansible_git /bin/sh -c 'ansible-lint netdevops/Playbooks/cisco_ios/intf_ip_address.yml'"
+            }
+        }
+        stage('deploy') {
+            steps {
+                echo 'Deploy stage'
             }
         }
         stage('Clean up') {
