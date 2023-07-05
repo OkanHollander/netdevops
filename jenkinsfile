@@ -4,16 +4,22 @@ pipeline {
         stage('Build'){
             steps {
                 echo 'Build stage'
+                sh "docker container run -dit --name ansible_git 0kanh0llander/netdevops:latest"
+                sh "docker exec -i ansible_git /bin/sh -c 'git clone https://gitlab.com/OkanHollander/netdevops.git'"
             }
         }
         stage('Test') {
             steps {
                 echo 'Test stage'
+                sh "docker exec -i ansible_git /bin/sh -c 'ansible-playbook Playbooks/cisco_ios/intf_ip_address.yml -i hosts --syntax-check'"
+                sh "docker exec -i ansible_git /bin/sh -c 'ansible-playbook Playbooks/cisco_ios/intf_ip_address.yml -i hosts --check'"
+                sh "docker exec -i ansible_git /bin/sh -c 'ansible-lint Playbooks/cisco_ios/intf_ip_address.yml -i hosts'"
             }
         }
         stage('Clean up') {
             steps {
                 echo 'Clean up stage'
+                sh "docker rm ansible_git -f"
             }
         }
     }
