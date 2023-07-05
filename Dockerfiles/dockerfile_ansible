@@ -1,11 +1,16 @@
-FROM alpine:3.11
+FROM ubuntu:18.04
 
 # install packages
-RUN apk add ansible-lint gcc python3-dev libc-dev libffi-dev openssl-dev py3-pip git libssh-dev
-RUN pip3 install paramiko
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
 
-# update ansible
-RUN pip3 install ansible
+RUN apt-get update; \
+    apt install -y openssh-client; \
+    apt install -y python3-pip; \
+    apt-get clean
+
+RUN pip3 install --upgrade pip; \
+    python3 -m pip install ansible
 
 # install ansible-galaxy collections
 RUN ansible-galaxy collection install cisco.nxos
