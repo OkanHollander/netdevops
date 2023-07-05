@@ -11,7 +11,8 @@ RUN apt-get update; \
     apt-get clean
 
 RUN pip3 install --upgrade pip; \
-    python3 -m pip install ansible
+    python3 -m pip install ansible; \
+    python3 -m pip install paramiko
 
 # install ansible-galaxy collections
 RUN ansible-galaxy collection install cisco.nxos
