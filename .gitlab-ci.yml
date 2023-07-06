@@ -1,0 +1,11 @@
+stages:
+  - merge
+
+merge_dev_to_main:
+  stage: merge
+  only:
+    - dev
+  script:
+    - git checkout main
+    - git merge --no-ff --no-edit $CI_COMMIT_SHA
+    - git push origin main
