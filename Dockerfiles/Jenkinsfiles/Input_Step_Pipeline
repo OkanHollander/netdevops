@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Input Stage') {
+            input {
+                message "Should we continue?"
+                ok "Yes, we should."
+                parameters {
+                    string(name: 'ENV', defaultValue: 'DEV', description: "Which environment to deploy to")
+                }
+            }
+            steps {
+                echo "Deploying to ${ENV}."
+            }
+        }
+    }
+}
