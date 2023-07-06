@@ -1,0 +1,14 @@
+---
+
+- name: Create new VLANs
+  hosts: aruba_cx
+
+  tasks:
+    - name: Create VLANs
+      arubanetworks.aoscx.aoscx_vlan:
+        vlan_id: "{{ item.id }}"
+        name: "{{ item.name }}"
+        description: "{{ item.description }}"
+        admin_state: "{{ item.admin_state }}"
+        state: "{{ item.state }}"
+      loop: "{{ vlans | list }} "

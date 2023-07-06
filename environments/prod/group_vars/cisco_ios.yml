@@ -1,5 +1,0 @@
----
-ansible_user: "okan"
-ansible_password: "hollander"
-ansible_network_os: cisco.ios.ios
-ansible_connection: network_cli
