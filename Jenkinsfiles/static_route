@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+    stages {
+        stage('Clone Repository') {
+            steps {
+                echo 'Build stage'
+                sh "docker container run -dit --name ansible_git 0kanh0llander/netdevops:latest"
+                sh "docker exec -i ansible_git /bin/sh -c 'git clone https://gitlab.com/OkanHollander/netdevops.git'"
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing deploy playbook'
+                sh "docker exec -i ansible_git /bin/sh -c 'ansible-playbook netdevops/Playbooks/cisco_ios/static_route.yml -i netdevops/hosts --syntax-check'"
+                sh "docker exec -i ansible_git /bin/sh -c 'ansible-playbook netdevops/Playbooks/cisco_ios/static_route.yml -i netdevops/hosts --check'"
+                echo 'Testing verify playbook'
+                sh "docker exec -i ansible_git /bin/sh -c 'ansible-playbook netdevops/Playbooks/cisco_ios/verify_static_routes.yml -i netdevops/hosts --syntax-check'"
+                sh "docker exec -i ansible_git /bin/sh -c 'ansible-playbook netdevops/Playbooks/cisco_ios/verify_static_routes.yml -i netdevops/hosts --check'"
+            }
+        }
+        stage('Deploy to DEV') {
+            steps {
+                echo 'Deploying to DEV'
+                sh "docker exec -i ansible_git /bin/sh -c 'ansible-playbook netdevops/Playbooks/cisco_ios/static_route.yml -i netdevops/hosts'"
+            }
+        }
+        stage('Verify DEV') {
+            steps {
+                echo 'Verifying routes in DEV'
+                sh "docker exec -i ansible_git /bin/sh -c 'ansible-playbook netdevops/Playbooks/cisco_ios/verify_static_routes.yml -i netdevops/hosts'"
+            }
+        }
+    }
+    post {
+        always {
+            echo 'Cleaning up containers'
+            sh "docker container remove ansible_git -f"
+        }
+    }
+}
