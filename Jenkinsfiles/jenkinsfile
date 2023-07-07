@@ -11,14 +11,14 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Test stage'
-                sh "docker exec -i ansible_git /bin/sh -c 'ansible-playbook netdevops/Playbooks/cisco_ios/intf_ip_address.yml -i netdevops/environments/dev/hosts --syntax-check'"
-                sh "docker exec -i ansible_git /bin/sh -c 'ansible-playbook netdevops/Playbooks/cisco_ios/intf_ip_address.yml -i netdevops/environments/dev/hosts --check'"
+                sh "docker exec -i ansible_git /bin/sh -c 'ansible-playbook netdevops/Playbooks/cisco_ios/intf_ip_address.yml -i hosts --syntax-check'"
+                sh "docker exec -i ansible_git /bin/sh -c 'ansible-playbook netdevops/Playbooks/cisco_ios/intf_ip_address.yml -i hosts --check'"
             }
         }
         stage('deploy') {
             steps {
                 echo 'Deploy stage'
-                sh "docker exec -i ansible_git /bin/sh -c 'ansible-playbook netdevops/Playbooks/cisco_ios/intf_ip_address.yml -i netdevops/environments/prod/hosts'"
+                sh "docker exec -i ansible_git /bin/sh -c 'ansible-playbook netdevops/Playbooks/cisco_ios/intf_ip_address.yml -i hosts'"
             }
         }
     }
