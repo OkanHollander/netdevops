@@ -1,0 +1,23 @@
+---
+
+- name: Verify routes
+  hosts: cisco_ios
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: TASK I - Gather Facts
+      cisco.ios.static_routes:
+        state: gathered
+      register: routes
+
+    - name: TASK II - Print Routes
+      ansible.builtin.debug:
+        msg: "{{ routes }}"
+
+    - name: TASK III - Verify Routes
+      cisco.ios.ios_command:
+        commands:
+          - show ip route static
+        wait_for:
+          - result[0] contains 100.65.2.0
