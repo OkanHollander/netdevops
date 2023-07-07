@@ -6,3 +6,4 @@ ansible_connection: arubanetworks.aoscx.aoscx  # REST API via pyaoscx connection
 ansible_aoscx_validate_certs: False
 ansible_aoscx_use_proxy: False
 ansible_acx_no_proxy: True
+validate_certs: false
