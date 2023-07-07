@@ -1,0 +1,23 @@
+---
+
+- name: Create static route
+  hosts: cisco_ios
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: TASK I - Create static route
+      cisco.ios.ios_static_routes:
+        config:
+          - address_families:
+              - afi: "ipv4"
+                routes:
+                  - dest: "100.65.2.0 255.255.255.128"
+                    next_hops:
+                      - forward_router_address: "10.123.10.254"
+        state: merged
+      register: static_output
+
+    - name: TASK II - Print Output
+      ansible.builtin.debug:
+        msg: "{{ static_output }}"
