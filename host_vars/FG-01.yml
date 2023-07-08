@@ -1,2 +1,22 @@
 ---
 API_KEY: "H5c6d6bg3tNk4rj5zQsrg74xH355sg"
+
+address_objects:
+  - object_name: object_01
+    ip_address: 10.1.1.0
+    netmask: 255.255.255.0
+  - object_name: object_02
+    ip_address: 10.1.2.0
+    netmask: 255.255.255.0
+  - object_name: object_03
+    ip_address: 10.1.3.0
+    netmask: 255.255.255.0
+  - object_name: object_04
+    ip_address: 10.1.4.0
+    netmask: 255.255.255.0
+  - object_name: object_05
+    ip_address: 10.1.5.0
+    netmask: 255.255.255.0
+  - object_name: object_06
+    ip_address: 10.1.6.0
+    netmask: 255.255.255.0

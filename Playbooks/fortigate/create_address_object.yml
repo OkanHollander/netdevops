@@ -1,0 +1,8 @@
+---
+
+- name: Create Firewall Address Object
+  hosts: fortigate
+  gather_facts: false
+
+  roles:
+    - fortigate_create_address_object
