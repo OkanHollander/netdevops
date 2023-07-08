@@ -1,0 +1,15 @@
+---
+
+-   name: TASK I - Change hostname
+    fortinet.fortios.fortios_system_global:
+        vdom: "{{ vdom }}"
+        system_global:
+            admintimeout: 23
+            hostname: "FG-01"
+        access_token: "{{ API_KEY }}"
+    register: output
+
+-   name: TASK II - Print Output
+    ansible.builtin.debug:
+        msg: "{{ output }}"
+    
