@@ -10,5 +10,5 @@
         name: "{{ item.name }}"
         description: "{{ item.description }}"
         admin_state: "{{ item.admin_state }}"
-        state: "{{ item.state }}"
+        state: delete
       loop: "{{ vlans | list }} "
