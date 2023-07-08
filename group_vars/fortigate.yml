@@ -1,7 +1,6 @@
 ---
 ansible_user: "admin"
 ansible_password: "admin"
-API_KEY: "H5c6d6bg3tNk4rj5zQsrg74xH355sg"
 ansible_network_os: fortinet.fortios.fortios
 ansible_connection: httpapi
 ansible_httpapi_use_ssl: no
