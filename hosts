@@ -3,6 +3,7 @@
 10.123.10.142
 10.123.10.143
 CX-01 ansible_host=10.123.10.145
+FG-01 ansible_host=10.123.10.146
 
 [cisco_ios]
 10.123.10.141
@@ -11,3 +12,6 @@ CX-01 ansible_host=10.123.10.145
 
 [aruba_cx]
 CX-01
+
+[fortigate]
+FG-01
