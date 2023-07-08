@@ -1,2 +1,3 @@
 ---
 # vars file for fortigate_create_address_object
+vdom: 'root'
