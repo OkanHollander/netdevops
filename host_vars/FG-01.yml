@@ -21,6 +21,20 @@ address_objects:
     ip_address: 10.1.6.0
     netmask: 255.255.255.0
 
+address_group_objects:
+  - group_name: group_01
+    members: 
+    - name: object_01
+    - name: object_02
+  - group_name: group_02
+    members: 
+    - name: object_03
+    - name: object_04
+  - group_name: group_03
+    members: 
+    - name: object_05
+    - name: object_06
+
 interfaces:
   aggregate:
     name: AGGR_01
