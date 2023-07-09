@@ -134,6 +134,8 @@ firewall_policies:
       - name: VLAN_120
     dst_address:
       - name: object_02
+    service:
+      - name: TCP_8080
     nat: disable
     status: enable
     comment: "Made with Ansible"
