@@ -1,0 +1,32 @@
+---
+# tasks file for fortigate_create_interface
+
+- name: TASK I - Create AGGREGATE Interface
+  fortinet.fortios.fortios_system_interface:
+    access_token: "{{ API_KEY }}"
+    vdom: "{{ vdom }}"
+    state: "present"
+    system_interface:
+      type: aggregate
+      aggregate_type: physical
+      allowaccess: "{{ interfaces.aggregate.allow_access }}"
+      description: "{{ interfaces.aggregate.comments }}"
+      name: "{{ interfaces.aggregate.name }}"
+      role: "{{ interfaces.aggregate.role }}"
+      vdom: "{{ vdom }}"
+
+- name: TASK II - Create vlan subinterfaces
+  fortinet.fortios.fortios_system_interface:
+    access_token: "{{ API_KEY }}"
+    vdom: "{{ vdom }}"
+    state: "present"
+    system_interface:
+      interface: "{{ item.aggregate_interface }}"   # which aggregate interface
+      alias: "{{ item.alias }}"
+      type: vlan
+      vlanid: "{{ item.vlan_id }}"                  # vlan id of the vlan
+      name: "{{ item.name }}"                       # name of the vlan
+      ip: "{{ item.ip_address }}"                   # IP address of the SVI
+      vlan_protocol: "{{ item.vlan_protocol }}"     # protocol 802.1q or 802.1ad
+      vdom: "{{ vdom }}"
+  loop: "{{ interfaces.vlans | list }}"
