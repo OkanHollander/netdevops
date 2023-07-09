@@ -1,0 +1,14 @@
+---
+# tasks file for fortigate_create_address_group_object
+
+- name: TASK I - Create Object Group
+  fortinet.fortios.fortios_firewall_addrgrp:
+    access_token: "{{ API_KEY }}"
+    firewall_addrgrp:
+      comment: "Made with Ansible"
+      name: "{{ item.group_name }}"
+      member: "{{ item.members }}"
+      visibility: "enable"
+    state: "present"
+    vdom: "{{ vdom }}"
+  loop: "{{ address_group_objects | list }}"
