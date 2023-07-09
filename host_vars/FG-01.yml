@@ -70,6 +70,12 @@ address_group_objects:
     - name: object_05
     - name: object_06
 
+service_objects:
+  - name: TCP_8080
+    comment: "Added with Ansible TCP port 8080"
+    protocol: "TCP/UDP/SCTP"
+    tcp_range: "8080-8081 8080-8085"
+
 firewall_policies:
   - policy_name: policy_01
     policy_id: 1
