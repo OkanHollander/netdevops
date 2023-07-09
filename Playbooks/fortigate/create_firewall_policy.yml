@@ -1,0 +1,8 @@
+---
+
+- name: Create Firewall Policy
+  hosts: fortigate
+  gather_facts: false
+
+  roles:
+  - role: fortigate_create_firewall_policy
