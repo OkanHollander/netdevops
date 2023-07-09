@@ -20,3 +20,40 @@ address_objects:
   - object_name: object_06
     ip_address: 10.1.6.0
     netmask: 255.255.255.0
+
+interfaces:
+  aggregate:
+    name: AGGR_01
+    allow_access:
+      - ssh
+      - ping
+      - http
+    comments: "Made with Ansible"
+    role: "lan"
+  vlans:
+    - name: VLAN_100
+      alias: DATA
+      vlan_id: 100
+      ip_address: 10.1.100.254/24
+      vlan_protocol: 8021q
+      aggregate_interface: "AGGR_01"
+    - name: VLAN_110
+      alias: VOIP
+      vlan_id: 110
+      ip_address: 10.1.110.254/24
+      vlan_protocol: 8021q
+      aggregate_interface: "AGGR_01"
+    - name: VLAN_120
+      alias: MANAGEMENT
+      vlan_id: 120
+      ip_address: 10.1.120.254/24
+      vlan_protocol: 8021q
+      aggregate_interface: "AGGR_01"
+    - name: VLAN_130
+      alias: PRINTERS
+      vlan_id: 130
+      ip_address: 10.1.130.254/24
+      vlan_protocol: 8021q
+      aggregate_interface: "AGGR_01"
+
+
