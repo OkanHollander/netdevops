@@ -70,6 +70,27 @@ address_group_objects:
     - name: object_05
     - name: object_06
 
+firewall_policies:
+  - policy_name: policy_01
+    policy_id: 1
+    comment: "Made with Ansible"
+    action: "accept"
+    srcintf:
+      - name: VLAN_100
+    src_address:
+      - name: object_01
+      - name: object_06
+    dstintf:
+      - name: VLAN_120
+    dst_address:
+      - name: group_03
+    service:
+      - name: ALL
+    nat: enable
+    status: enable
+
+    
+
 
 
 

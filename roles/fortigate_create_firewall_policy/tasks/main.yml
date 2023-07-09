@@ -1,2 +1,21 @@
 ---
 # tasks file for fortigate_create_firewall_policy
+- name: TASK I
+  fortinet.fortios.fortios_firewall_policy:
+    access_token: "{{ API_KEY }}"
+    vdom: "{{ vdom }}"
+    state: present
+    firewall_policy:
+      name: "{{ item.policy_name }}"
+      policyid: "{{ item.policy_id }}"
+      comments: "{{ item.comment }}"
+      action: "{{ item.action }}"
+      srcintf: "{{ item.srcintf }}"
+      dstintf: "{{ item.dstintf }}"
+      srcaddr: "{{ item.src_address }}"
+      dstaddr: "{{ item.dst_address }}"
+      service: "{{ item.service }}"
+      nat: "{{ item.nat }}"
+      status: "{{ item.status }}"
+      schedule: "always"
+  loop: "{{ firewall_policies | list }}"
