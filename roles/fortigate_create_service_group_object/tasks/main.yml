@@ -1,0 +1,12 @@
+---
+# tasks file for fortigate_create_service_group_object
+- name: TASK I - Create service group object
+  fortinet.fortios.fortios_firewall_service_group:
+    access_token: "{{ API_KEY }}"
+    vdom: "{{ vdom }}"
+    state: present
+    firewall_service_group:
+      comment: "{{ item.comment | default(omit) }}"
+      name: "{{ item.group_name }}"
+      member: "{{ item.members }}"
+  loop: "{{ service_group_objects | list }}"

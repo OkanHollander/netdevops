@@ -74,7 +74,21 @@ service_objects:
   - name: TCP_8080
     comment: "Added with Ansible TCP port 8080"
     protocol: "TCP/UDP/SCTP"
-    tcp_range: "8080-8081 8080-8085"
+    tcp_range: "8080-8080"
+  - name: TCP_4000-4080
+    comment: "Added with Ansible TCP port 4000-4080"
+    protocol: "TCP/UDP/SCTP"
+    tcp_range: "4000-4080"
+
+service_group_objects:
+  - group_name: WEB_TRAFFIC
+    comment: "Service group made with Ansible"
+    members:
+    - name: HTTP
+    - name: HTTPS
+
+
+
 
 firewall_policies:
   - policy_name: policy_01

@@ -1,0 +1,3 @@
+---
+# vars file for fortigate_create_service_group_object
+vdom: root
