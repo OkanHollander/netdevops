@@ -1,0 +1,8 @@
+---
+
+- name: Firmware upgrade 7.0.6
+  hosts: fortigate
+  gather_facts: false
+
+  roles:
+    - fortigate_firmware_upgrade

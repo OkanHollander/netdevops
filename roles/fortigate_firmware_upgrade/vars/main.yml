@@ -1,2 +1,3 @@
 ---
 # vars file for fortigate_firmware_upgrade
+vdom: root
