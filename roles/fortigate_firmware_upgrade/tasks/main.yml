@@ -1,0 +1,11 @@
+---
+# tasks file for fortigate_firmware_upgrade
+
+- name: TASK I - Upgrade firmware with file
+  fortinet.fortios.fortios_monitor:
+    access_token: "{{ API_KEY }}"
+    vdom: "{{ vdom }}"
+    selector: upgrade.system.firmware
+    params:
+      source: "files/"
+      filename: "{{ upgrade.firmware }}"
