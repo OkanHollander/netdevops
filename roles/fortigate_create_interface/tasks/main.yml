@@ -8,7 +8,6 @@
     state: "present"
     system_interface:
       type: aggregate
-      aggregate_type: physical
       allowaccess: "{{ interfaces.aggregate.allow_access }}"
       description: "{{ interfaces.aggregate.comments }}"
       name: "{{ interfaces.aggregate.name }}"
