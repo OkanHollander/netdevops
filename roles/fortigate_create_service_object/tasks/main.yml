@@ -1,2 +1,14 @@
 ---
 # tasks file for fortigate_create_service_object
+- name: TASK I - Create Service Object
+  fortinet.fortios.fortios_firewall_service_custom:
+    access_token: "{{ API_KEY }}"
+    vdom: "{{ vdom }}"
+    state: "present"
+    firewall_service_custom:
+      name: "{{ item.name }}"
+      comment: "{{ item.comment }}"
+      protocol: "{{ item.protocol }}"
+      tcp_portrange: "{{ item.tcp_range | default(omit) }}"
+      udp_portrange: "{{ item.udp_range | default(omit) }}"
+  loop: "{{ service_objects | list }}"
