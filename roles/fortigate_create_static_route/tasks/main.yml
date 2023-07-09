@@ -1,0 +1,15 @@
+---
+# tasks file for fortigate_create_static_route
+- name: TASK I - Create Static Route
+  fortinet.fortios.fortios_router_static:
+    access_token: "{{ API_KEY }}"
+    vdom: "{{ vdom }}"
+    state: present
+    router_static:
+      seq_num: "{{ item.sequence }}"
+      comment: "{{ item.comment }}"
+      dst: "{{ item.dst }}"
+      gateway: "{{ item.gateway }}"
+      device: "{{ item.device }}"
+      status: "{{ item.status }}"
+  loop: "{{ routes.static | list }}"
