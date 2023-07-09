@@ -95,7 +95,14 @@ firewall_policies:
     nat: enable
     status: enable
 
-    
+routes:
+  static:
+    - comment: "Made with Ansible"
+      sequence: 2
+      dst: 100.65.2.0/25
+      device: "VLAN_100"
+      gateway: "100.65.1.254"
+      status: "enable"
 
 
 

@@ -1,0 +1,8 @@
+---
+
+- name: Configure Static Routes
+  hosts: fortigate
+  gather_facts: false
+
+  roles:
+    - fortigate_create_static_route
