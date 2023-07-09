@@ -1,0 +1,9 @@
+---
+
+- name: Create Service Group Objects
+  hosts: fortigate
+  gather_facts:
+
+  roles:
+    - fortigate_create_service_object
+    - fortigate_create_service_group_object
