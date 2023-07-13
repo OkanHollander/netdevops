@@ -5,5 +5,4 @@
   gather_facts: false
 
   roles:
-    - fortigate_create_address_object
     - fortigate_create_address_group_object

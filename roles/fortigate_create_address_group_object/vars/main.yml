@@ -1,3 +1,5 @@
 ---
 # vars file for fortigate_create_address_group_object
 vdom: root
+groups_to_create:
+  - group_03
