@@ -1,3 +1,5 @@
 ---
 # vars file for fortigate_create_service_object
 vdom: "root"
+objects_to_create:
+  - TCP_8080

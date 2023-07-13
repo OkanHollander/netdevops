@@ -1,3 +1,5 @@
 ---
 # vars file for fortigate_create_service_group_object
 vdom: root
+groups_to_create:
+  - WEB_TRAFFIC
