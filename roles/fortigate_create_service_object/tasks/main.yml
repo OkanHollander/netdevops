@@ -12,3 +12,4 @@
       tcp_portrange: "{{ item.tcp_range | default(omit) }}"
       udp_portrange: "{{ item.udp_range | default(omit) }}"
   loop: "{{ service_objects | list }}"
+  when: item.name in objects_to_create

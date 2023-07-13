@@ -1,6 +1,28 @@
 ---
 # tasks file for fortigate_create_service_group_object
-- name: TASK I - Create service group object
+
+- name: TASK I - Extract member objects from the service group object
+  ansible.builtin.set_fact:
+    my_list: "{{ item.members }}"
+  loop: "{{ service_group_objects | list }}"
+  when: item.group_name in groups_to_create
+
+# for debug purposes
+# - name: Print oputput
+#   ansible.builtin.debug:
+#     msg: "{{ item.name }}"
+#   loop: "{{ my_list | list }}"
+
+- name:  TASK II - Create address_objects
+  ansible.builtin.include_role:
+    name: fortigate_create_address_object
+  vars:
+    objects_to_create: "{{ i.name }}"
+  loop: "{{ my_list | list }}"
+  loop_control:
+    loop_var: i
+
+- name: TASK III - Create service group object
   fortinet.fortios.fortios_firewall_service_group:
     access_token: "{{ API_KEY }}"
     vdom: "{{ vdom }}"
@@ -10,3 +32,4 @@
       name: "{{ item.group_name }}"
       member: "{{ item.members }}"
   loop: "{{ service_group_objects | list }}"
+  when: item.group_name in service_group_objects
