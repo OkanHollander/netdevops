@@ -13,15 +13,7 @@ def convert_json_to_yaml(json_data):
         # Load JSON data
         data = json.loads(json_data)
 
-        # Create a dictionary with 'address_objects' as the key and data as the value
-        converted_data = {'address_objects': []}
-        converted_data['address_objects'].append(data)
-
-        # Convert to YAML with 'address_objects' as a list value
-        yaml_data = yaml.dump(converted_data, sort_keys=False, default_flow_style=False)
-
-
-        return yaml_data
+        return data
 
     except json.JSONDecodeError as error:
         print("Error decoding JSON data:", str(error))
@@ -50,14 +42,19 @@ def main():
                 results = data["items"]
                 num_records = len(results)
 
+                address_objects = []
                 for result in results:
                     raw_json_output = result
                     json_output = json.dumps(raw_json_output)  # Convert dictionary to JSON string
                     yaml_output = convert_json_to_yaml(json_output)
+                    address_objects.append(yaml_output)
                 
+                yaml_data = yaml.dump({'address_objects' : address_objects},
+                                      sort_keys=False,
+                                      default_flow_style=False)
                     # Write output to file
-                    with open(f'asa_{ip_address}.yml', 'a') as outfile:
-                        outfile.write(yaml_output)
+                with open(f'asa_{ip_address}.yml', 'a') as outfile:
+                    outfile.write(yaml_data)
                     
 
                 # update pagination limits for next iteration
