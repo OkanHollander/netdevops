@@ -43,11 +43,16 @@ def main():
                 num_records = len(results)
 
                 address_objects = []
+                duplicates = []
+
                 for result in results:
                     raw_json_output = result
                     json_output = json.dumps(raw_json_output)  # Convert dictionary to JSON string
                     yaml_output = convert_json_to_yaml(json_output)
-                    address_objects.append(yaml_output)
+                    if yaml_output in address_objects:
+                        duplicates.append(yaml_output)
+                    else:
+                        address_objects.append(yaml_output)
                 
                 yaml_data = yaml.dump({'address_objects' : address_objects},
                                       sort_keys=False,
@@ -55,7 +60,12 @@ def main():
                     # Write output to file
                 with open(f'asa_{ip_address}.yml', 'a') as outfile:
                     outfile.write(yaml_data)
-                    
+                
+
+                if duplicates:
+                    rprint("Duplicate Entries:")
+                for duplicate in duplicates:
+                    rprint(duplicate)
 
                 # update pagination limits for next iteration
                 total_records += num_records
