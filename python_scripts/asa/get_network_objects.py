@@ -13,8 +13,13 @@ def convert_json_to_yaml(json_data):
         # Load JSON data
         data = json.loads(json_data)
 
+        # Create a dictionary with 'address_objects' as the key and data as the value
+        converted_data = {'address_objects': []}
+        converted_data['address_objects'].append(data)
+
         # Convert to YAML with 'address_objects' as a list value
-        yaml_data = yaml.dump({'address_objects': [data]}, sort_keys=False, default_flow_style=False)
+        yaml_data = yaml.dump(converted_data, sort_keys=False, default_flow_style=False)
+
 
         return yaml_data
 
