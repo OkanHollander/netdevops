@@ -48,11 +48,11 @@ def main():
                 for result in results:
                     raw_json_output = result
                     json_output = json.dumps(raw_json_output)
-                    convert_json_to_yaml(json_output)
+                    yaml_output = convert_json_to_yaml(json_output)
                 
                     #write output to file
                     with open(f'asa_{ip_address}.yml', 'a') as outfile:
-                        json.dump(convert_json_to_yaml, outfile)
+                        json.dump(yaml_output, outfile)
                     
 
                 # update pagination limits for next iteration
