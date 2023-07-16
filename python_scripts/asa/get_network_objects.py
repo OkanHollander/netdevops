@@ -46,7 +46,8 @@ def main():
                 num_records = len(results)
 
                 for result in results:
-                    json_output = result
+                    raw_json_output = result
+                    json_output = json.dumps(raw_json_output)
                     convert_json_to_yaml(json_output)
                 
                     #write output to file
