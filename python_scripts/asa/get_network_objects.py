@@ -11,8 +11,9 @@ def main():
     limit = 100
     offset = 0
     total_records = 0
+    ip_address = "10.123.10.220"
 
-    base_url = f"https://10.123.10.220:443/api/objects/networkobjects?limit={limit}&offset={offset}"
+    base_url = f"https://{ip_address}:443/api/objects/networkobjects?limit={limit}&offset={offset}"
     headers = {"Authorization": "Basic YWRtaW46YWRtaW4=",
                "Accept": "application/json"}
     while True:
@@ -32,7 +33,7 @@ def main():
                     raw_output = result
                 
                     #write output to file
-                    with open('asa_output.json', 'a') as outfile:
+                    with open(f'asa_{ip_address}.json', 'a') as outfile:
                         json.dump(raw_output, outfile)
                     
 
@@ -51,3 +52,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+ 
