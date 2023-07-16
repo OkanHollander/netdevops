@@ -13,8 +13,11 @@ def convert_json_to_yaml(json_data):
         # Load JSON data
         data = json.loads(json_data)
 
+        # Encapsulate data in a dictionary with 'address_objects' key
+        converted_data = {'address_objects': data}
+
         # Convert to YAML
-        yaml_data = yaml.dump(data, sort_keys=False)
+        yaml_data = yaml.dump(converted_data, sort_keys=False, default_flow_style=False)
 
         return yaml_data
 
