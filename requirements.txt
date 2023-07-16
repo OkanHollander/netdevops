@@ -3,3 +3,4 @@ ansible-lint
 paramiko
 requests
 rich
+pyyaml

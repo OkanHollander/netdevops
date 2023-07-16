@@ -2,10 +2,26 @@
 # with the requests library
 import requests
 from rich import print as rprint
+import yaml
 import json
 
 # suppres warning messages
 requests.packages.urllib3.disable_warnings()
+
+def convert_json_to_yaml(json_data):
+    try:
+        # Load JSON data
+        data = json.loads(json_data)
+
+        # Convert to YAML
+        yaml_data = yaml.dump(data, sort_keys=False)
+
+        return yaml_data
+
+    except json.JSONDecodeError as error:
+        print("Error decoding JSON data:", str(error))
+    except Exception as error:
+        print("Error converting JSON to YAML:", str(error))
 
 def main():
     limit = 100
@@ -30,11 +46,12 @@ def main():
                 num_records = len(results)
 
                 for result in results:
-                    raw_output = result
+                    json_output = result
+                    convert_json_to_yaml(json_output)
                 
                     #write output to file
-                    with open(f'asa_{ip_address}.json', 'a') as outfile:
-                        json.dump(raw_output, outfile)
+                    with open(f'asa_{ip_address}.yml', 'a') as outfile:
+                        json.dump(convert_json_to_yaml, outfile)
                     
 
                 # update pagination limits for next iteration
