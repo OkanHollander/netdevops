@@ -77,7 +77,7 @@ def main():
                 existing_data = {}
                 try:
                     with open('host_vars/FG-01.yml', 'r') as infile:
-                        existing_data = yaml.safe_load(infile)
+                        existing_data = yaml.safe_load(infile) or {}
                 except FileNotFoundError:
                     pass
                 
