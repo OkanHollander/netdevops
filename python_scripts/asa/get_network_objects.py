@@ -88,6 +88,8 @@ def main():
                     json_output = json.dumps(raw_json_output)  # Convert dictionary to JSON string
                     yaml_output = convert_json_to_yaml(json_output)
                     
+                    if yaml_output is None:
+                        continue
                     name = yaml_output['name']
                     if any(obj['name'] == name for obj in existing_objects):
                         duplicates.append(yaml_output)
@@ -96,14 +98,12 @@ def main():
                     else:
                         address_objects.append(yaml_output)
 
-                # Existing code...
-
                 # Update the existing YAML data with new address objects
                 existing_objects.extend(address_objects)
                 updated_data = {'address_objects': existing_objects}
 
                 # Write output to file
-                with open(f'host_vars/FG-01.yml', 'w') as outfile:
+                with open(f'host_vars/FG-01.yml', 'a') as outfile:
                     yaml.dump(updated_data, outfile, sort_keys=False, default_flow_style=False)
                 
                 # update pagination limits for next iteration
