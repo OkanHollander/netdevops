@@ -12,16 +12,22 @@ requests.packages.urllib3.disable_warnings()
 def convert_json_to_yaml(json_data):
     try:
         json_data = yaml.safe_load(json_data)
-        cidr_address = json_data.get('host', {}).get('value', '')
-        ip_network = ipaddress.ip_network(cidr_address, strict=False)
-        ip_address = str(ip_network.network_address)
+        host_data = json_data.get('host', {})
+        host_kind = host_data.get('kind', '')
+        host_value = host_data.get('value', '')
 
-        subnet = get_subnet(cidr_address)
-        
+        if host_kind == 'IPv4FQDN':
+            ip_address = host_value
+            subnet = ''
+        else:
+            ip_network = ipaddress.ip_network(host_value, strict=False)
+            ip_address = str(ip_network.network_address)
+            subnet = get_subnet(host_value)
+
         yaml_data = {
             'name': json_data.get('name', ''),
             'host': {
-                'kind': json_data.get('host', {}).get('kind', ''),
+                'kind': host_kind,
                 'value': ip_address,
                 'subnet': subnet
             }
@@ -32,6 +38,7 @@ def convert_json_to_yaml(json_data):
         print("Error decoding JSON data:", str(error))
     except Exception as error:
         print("Error converting JSON to YAML:", str(error))
+
 
 def get_subnet(cidr_address):
     try:

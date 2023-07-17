@@ -3,3 +3,4 @@ extensions.json
 settings.json
 .DS_Store
 .vault_password
+python_scripts/asa/json_2yaml.py
