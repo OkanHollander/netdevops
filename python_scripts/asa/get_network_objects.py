@@ -100,7 +100,7 @@ def main():
                 updated_data = {'address_objects': existing_objects}
 
                 # Write output to file
-                with open(f'host_vars/FG-01.yml', 'w') as outfile:
+                with open(f'host_vars/FG-01.yml', 'a') as outfile:
                     yaml.dump(updated_data, outfile, sort_keys=False, default_flow_style=False)
         
                 # update pagination limits for next iteration
