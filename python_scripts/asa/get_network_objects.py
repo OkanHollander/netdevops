@@ -107,18 +107,12 @@ def main():
                 with open(f'host_vars/FG-01.yml', 'w') as outfile:
                     yaml.dump(existing_data, outfile, sort_keys=False, default_flow_style=False)
 
-                # Update pagination limits for next iteration
-                total_records += num_records
-
-                # Check if there are more records to retrieve
-                if total_records >= data["rangeInfo"]["total"]:
+                # Check if there are more pages to retrieve
+                if 'next' not in data["rangeInfo"]:
                     break
 
-                # Update the offset for the next iteration
-                offset += limit
-
                 # Update the base_url for the next iteration
-                base_url = f"https://{ip_address}:443/api/objects/networkobjects?limit={limit}&offset={offset}"
+                base_url = data["rangeInfo"]["next"]
 
             else:
                 print(f"{response.status_code}")
