@@ -111,7 +111,7 @@ def main():
                 total_records += num_records
 
                 # Check if there are more records to retrieve
-                if total_records >= data["rangeInfo"]["total"]:
+                if total_records + num_records >= data["rangeInfo"]["total"]:
                     break
 
                 # Update the offset for the next iteration
