@@ -7,7 +7,7 @@
     vdom: "{{ vdom }}"
     firewall_address:
       comment: "Test via Ansible"
-      name: "{{ item.object_name }}"
+      name: "{{ item.name }}"
       obj_id: "ip"
       subnet: "{{ item.ip_address }} {{ item.netmask }}"
     state: "present"
