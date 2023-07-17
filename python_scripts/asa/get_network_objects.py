@@ -10,10 +10,15 @@ requests.packages.urllib3.disable_warnings()
 
 def convert_json_to_yaml(json_data):
     try:
-        # Load JSON data
-        data = json.loads(json_data)
-
-        return data
+        json_data = yaml.safe_load(json_data)
+        yaml_data = {
+            'name': json_data.get('name', ''),
+            'host': {
+                'kind': json_data.get('host', {}).get('kind', ''),
+                'value': json_data.get('host', {}).get('value', '')
+            }
+        }
+        return yaml_data
 
     except json.JSONDecodeError as error:
         print("Error decoding JSON data:", str(error))
