@@ -73,27 +73,27 @@ def main():
                 address_objects = []
                 duplicates = []
 
+                # Load existing YAML data
+                existing_data = {}
+                try:
+                    with open('host_vars/FG-01.yml', 'r') as infile:
+                        existing_data = yaml.safe_load(infile)
+                except FileNotFoundError:
+                    pass
+                
+                existing_objects = existing_data.get('address_objects', [])
+
                 for result in results:
                     raw_json_output = result
                     json_output = json.dumps(raw_json_output)  # Convert dictionary to JSON string
                     yaml_output = convert_json_to_yaml(json_output)
-                    if yaml_output in address_objects:
+                    
+                    if yaml_output in existing_objects:
+                        duplicates.append(yaml_output)
+                    elif yaml_output in address_objects:
                         duplicates.append(yaml_output)
                     else:
                         address_objects.append(yaml_output)
-                
-                yaml_data = yaml.dump({'address_objects' : address_objects},
-                                      sort_keys=False,
-                                      default_flow_style=False)
-                    # Write output to file
-                with open(f'host_vars/FG-01.yml', 'a') as outfile:
-                    outfile.write(yaml_data)
-                
-
-                if duplicates:
-                    rprint("Duplicate Entries:")
-                for duplicate in duplicates:
-                    rprint(duplicate)
 
                 # update pagination limits for next iteration
                 total_records += num_records
