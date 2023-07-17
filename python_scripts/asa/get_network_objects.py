@@ -57,6 +57,17 @@ def main():
     base_url = f"https://{ip_address}:443/api/objects/networkobjects?limit={limit}&offset={offset}"
     headers = {"Authorization": "Basic YWRtaW46YWRtaW4=",
                "Accept": "application/json"}
+    
+    # Load existing YAML data
+    existing_data = {}
+    try:
+        with open('host_vars/FG-01.yml', 'r') as infile:
+            existing_data = yaml.safe_load(infile) or {}
+    except FileNotFoundError:
+        pass
+    
+    existing_objects = existing_data.get('address_objects', [])
+
     while True:
         response = requests.get(url=base_url,
                                 headers=headers,
@@ -73,16 +84,6 @@ def main():
                 address_objects = []
                 duplicates = []
 
-                # Load existing YAML data
-                existing_data = {}
-                try:
-                    with open('host_vars/FG-01.yml', 'r') as infile:
-                        existing_data = yaml.safe_load(infile) or {}
-                except FileNotFoundError:
-                    pass
-                
-                existing_objects = existing_data.get('address_objects', [])
-
                 for result in results:
                     raw_json_output = result
                     json_output = json.dumps(raw_json_output)  # Convert dictionary to JSON string
@@ -90,7 +91,7 @@ def main():
 
                     if yaml_output is None:
                         continue
-                    
+
                     name = yaml_output['name']
                     if any(obj['name'] == name for obj in existing_objects + address_objects):
                         duplicates.append(yaml_output)
@@ -101,10 +102,11 @@ def main():
                 existing_objects.extend(address_objects)
                 updated_data = {'address_objects': existing_objects}
 
-                # Write output to file
-                with open(f'host_vars/FG-01.yml', 'w') as outfile:
+                # Append new output to file
+                with open(f'host_vars/FG-01.yml', 'a') as outfile:
+                    outfile.write('\n')
                     yaml.dump(updated_data, outfile, sort_keys=False, default_flow_style=False)
-                
+
                 # update pagination limits for next iteration
                 total_records += num_records
                 offset += limit
