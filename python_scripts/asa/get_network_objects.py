@@ -12,8 +12,11 @@ requests.packages.urllib3.disable_warnings()
 def convert_json_to_yaml(json_data):
     try:
         json_data = yaml.safe_load(json_data)
-        ip_address = json_data.get('host', {}).get('value', '')
-        subnet = get_subnet(ip_address)
+        cidr_address = json_data.get('host', {}).get('value', '')
+        ip_network = ipaddress.ip_network(cidr_address, strict=False)
+        ip_address = str(ip_network.network_address)
+
+        subnet = get_subnet(cidr_address)
         
         yaml_data = {
             'name': json_data.get('name', ''),
@@ -29,10 +32,10 @@ def convert_json_to_yaml(json_data):
         print("Error decoding JSON data:", str(error))
     except Exception as error:
         print("Error converting JSON to YAML:", str(error))
-        
-def get_subnet(ip_address):
+
+def get_subnet(cidr_address):
     try:
-        network = ipaddress.ip_network(ip_address)
+        network = ipaddress.ip_network(cidr_address, strict=False)
         subnet = str(network.netmask)
         return subnet
     except ValueError as error:
