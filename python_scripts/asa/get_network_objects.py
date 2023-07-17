@@ -4,6 +4,7 @@ import requests
 from rich import print as rprint
 import yaml
 import json
+import ipaddress
 
 # suppres warning messages
 requests.packages.urllib3.disable_warnings()
@@ -11,11 +12,15 @@ requests.packages.urllib3.disable_warnings()
 def convert_json_to_yaml(json_data):
     try:
         json_data = yaml.safe_load(json_data)
+        ip_address = json_data.get('host', {}).get('value', '')
+        subnet = get_subnet(ip_address)
+        
         yaml_data = {
             'name': json_data.get('name', ''),
             'host': {
                 'kind': json_data.get('host', {}).get('kind', ''),
-                'value': json_data.get('host', {}).get('value', '')
+                'value': ip_address,
+                'subnet': subnet
             }
         }
         return yaml_data
@@ -24,6 +29,14 @@ def convert_json_to_yaml(json_data):
         print("Error decoding JSON data:", str(error))
     except Exception as error:
         print("Error converting JSON to YAML:", str(error))
+        
+def get_subnet(ip_address):
+    try:
+        network = ipaddress.ip_network(ip_address)
+        subnet = str(network.netmask)
+        return subnet
+    except ValueError as error:
+        print("Error getting subnet for IP address:", str(error))
 
 def main():
     limit = 100
