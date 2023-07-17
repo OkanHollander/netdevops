@@ -88,6 +88,8 @@ def main():
                     json_output = json.dumps(raw_json_output)  # Convert dictionary to JSON string
                     yaml_output = convert_json_to_yaml(json_output)
                     
+                    if yaml_output is None:
+                        continue
                     name = yaml_output['name']
                     if any(obj['name'] == name for obj in existing_objects):
                         duplicates.append(yaml_output)
@@ -95,8 +97,6 @@ def main():
                         duplicates.append(yaml_output)
                     else:
                         address_objects.append(yaml_output)
-
-                # Existing code...
 
                 # Update the existing YAML data with new address objects
                 existing_objects.extend(address_objects)
