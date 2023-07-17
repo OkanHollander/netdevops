@@ -6,7 +6,7 @@ import yaml
 import json
 import ipaddress
 
-# suppres warning messages
+# suppress warning messages
 requests.packages.urllib3.disable_warnings()
 
 def convert_json_to_yaml(json_data):
@@ -99,28 +99,18 @@ def main():
                         address_objects.append(yaml_output)
 
                 # Update the existing YAML data with new address objects
-                existing_objects.extend(address_objects)
-                updated_data = {'address_objects': existing_objects}
+                existing_data['address_objects'] = existing_objects + address_objects
 
-                # Append new output to file
-                with open(f'host_vars/FG-01.yml', 'a') as outfile:
-                    outfile.write('\n')
-                    yaml.dump(updated_data, outfile, sort_keys=False, default_flow_style=False)
+                # Write output to file
+                with open(f'host_vars/FG-01.yml', 'w') as outfile:
+                    yaml.dump(existing_data, outfile, sort_keys=False, default_flow_style=False)
 
-                # update pagination limits for next iteration
+                # Update pagination limits for next iteration
                 total_records += num_records
                 offset += limit
 
                 # Check if there are more records to retrieve
                 if num_records < limit or total_records == data["rangeInfo"]["total"]:
-                    # Update the existing YAML data with new address objects
-                    existing_objects.extend(address_objects)
-                    updated_data = {'address_objects': existing_objects}
-
-                    # Write output to file
-                    with open(f'host_vars/FG-01.yml', 'w') as outfile:
-                        yaml.dump(updated_data, outfile, sort_keys=False, default_flow_style=False)
-                
                     break
                 # Update the base_url for the next iteration
                 base_url = f"https://10.123.10.220/api/objects/networkobjects?limit={limit}&offset={offset}"
@@ -130,4 +120,3 @@ def main():
 
 if __name__ == "__main__":
     main()
- 
