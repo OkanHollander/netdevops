@@ -95,8 +95,10 @@ def main():
                     name = yaml_output['name']
                     if any(obj['name'] == name for obj in existing_objects + address_objects):
                         duplicates.append(yaml_output)
+                        rprint(f"Duplicate entry: {yaml_output}")
                     else:
                         address_objects.append(yaml_output)
+                        rprint(f"Added entry: {yaml_output}")
 
                 # Update the existing YAML data with new address objects
                 existing_data['address_objects'] = existing_objects + address_objects
