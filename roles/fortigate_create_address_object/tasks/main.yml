@@ -12,3 +12,4 @@
       subnet: "{{ item.ip_address }} {{ item.netmask }}"
     state: "present"
   loop: "{{ address_objects | list }}"
+  when: item.name in objects_to_create
