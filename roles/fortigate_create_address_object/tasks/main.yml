@@ -9,7 +9,7 @@
       comment: "Test via Ansible"
       name: "{{ item.name }}"
       obj_id: "ip"
-      subnet: "{{ item.ip_address }} {{ item.netmask }}"
+      subnet: "{{ item.host.value | ansible.netcommon.ipaddr('address') }} {{ item.host.value | ansible.netcommon.ipaddr('netmask') }}"
     state: "present"
   loop: "{{ address_objects | list }}"
   when: item.name in objects_to_create
