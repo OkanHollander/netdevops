@@ -95,6 +95,14 @@ def main():
                     else:
                         address_objects.append(yaml_output)
 
+                # Update the existing YAML data with new address objects
+                existing_objects.extend(address_objects)
+                updated_data = {'address_objects': existing_objects}
+
+                # Write output to file
+                with open(f'host_vars/FG-01.yml', 'w') as outfile:
+                    yaml.dump(updated_data, outfile, sort_keys=False, default_flow_style=False)
+        
                 # update pagination limits for next iteration
                 total_records += num_records
                 offset += limit
