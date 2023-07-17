@@ -111,11 +111,11 @@ def main():
                 total_records += num_records
 
                 # Check if there are more records to retrieve
-                if total_records + num_records >= data["rangeInfo"]["total"]:
+                if total_records >= data["rangeInfo"]["total"]:
                     break
 
                 # Update the offset for the next iteration
-                offset += num_records
+                offset += limit
 
                 # Update the base_url for the next iteration
                 base_url = f"https://{ip_address}:443/api/objects/networkobjects?limit={limit}&offset={offset}"
