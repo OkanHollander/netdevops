@@ -107,9 +107,8 @@ def main():
                 with open(f'host_vars/FG-01.yml', 'w') as outfile:
                     yaml.dump(existing_data, outfile, sort_keys=False, default_flow_style=False)
 
-                # Update pagination limits for next iteration
-                total_records += num_records
-                offset += limit
+                # Update the offset for the next iteration
+                offset += num_records
 
                 # Check if there are more records to retrieve
                 if num_records < limit or total_records == data["rangeInfo"]["total"]:
