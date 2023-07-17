@@ -113,6 +113,14 @@ def main():
 
                 # Check if there are more records to retrieve
                 if num_records < limit or total_records == data["rangeInfo"]["total"]:
+                    # Update the existing YAML data with new address objects
+                    existing_objects.extend(address_objects)
+                    updated_data = {'address_objects': existing_objects}
+
+                    # Write output to file
+                    with open(f'host_vars/FG-01.yml', 'w') as outfile:
+                        yaml.dump(updated_data, outfile, sort_keys=False, default_flow_style=False)
+                
                     break
                 # Update the base_url for the next iteration
                 base_url = f"https://10.123.10.220/api/objects/networkobjects?limit={limit}&offset={offset}"
