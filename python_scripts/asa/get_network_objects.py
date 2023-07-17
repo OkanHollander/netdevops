@@ -58,7 +58,7 @@ def main():
                                       sort_keys=False,
                                       default_flow_style=False)
                     # Write output to file
-                with open(f'asa_{ip_address}.yml', 'a') as outfile:
+                with open(f'host_vars/FG-01.yml', 'a') as outfile:
                     outfile.write(yaml_data)
                 
 
