@@ -1,0 +1,7 @@
+---
+
+- name: Create Layer 3 Interface
+  hosts: aruba_cx
+
+  roles:
+    - aruba_cx_interface_l3
