@@ -1,0 +1,7 @@
+---
+
+- name: Change Banner on Aruba CX
+  hosts: aruba_cx
+
+  roles:
+    - aruba_cx_banner
