@@ -1,2 +1,10 @@
 ---
 # tasks file for aruba_cx_dns
+
+- name: TASK I
+  arubanetworks.aoscx.aoscx_dns:
+    dns_name_servers: 
+      0: "{{ dns_name_servers[0] }}"
+      1: "{{ dns_name_servers[1] }}"
+    state: create
+  loop: "{{ dns_name_servers | list}}"
