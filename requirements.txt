@@ -4,3 +4,4 @@ paramiko
 requests
 rich
 pyyaml
+netaddr
