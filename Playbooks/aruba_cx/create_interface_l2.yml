@@ -1,0 +1,7 @@
+---
+
+- name: Create Layer 2 interface
+  hosts: aruba_cx
+
+  - roles:
+    - aruba_cx_interface_l2

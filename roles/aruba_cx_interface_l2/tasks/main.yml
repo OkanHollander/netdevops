@@ -1,0 +1,33 @@
+---
+# tasks file for aruba_cx_interface_l2
+
+- name: TASK I - Configure Access Ports
+  arubanetworks.aoscx.aoscx_l2_interface:
+    state: create
+    interface: "{{ item.name }}"
+    description: "{{ item.description }}"
+    vlan_mode: "{{ item.vlan_mode }}"
+    vlan_access: "{{ item.vlan_access }}"
+  loop: "{{ interfaces | list }}"
+  when: (item.vlan_mode == 'access' and item.type == 'l2')
+  register: access_output
+
+- name: TASK II - Print Access Results
+  ansible.builtin.debug:
+    msg: "{{ access_output }}"
+
+- name: TASK III - Configure Trunk Ports
+  arubanetworks.aoscx.aoscx_l2_interface:
+    state: create
+    interface: "{{ item.name }}"
+    description: "{{ item.description }}"
+    vlan_mode: "{{ item.vlan_mode }}"
+    vlan_trunks: "{{ item.vlan_trunk }}"
+    native_vlan_id: "{{ item.native_vlan }}"
+  loop: "{{ interfaces | list }}"
+  when: (item.vlan_mode == 'trunk' and item.type == 'l2')
+  register: trunk_output
+
+- name: TASK IV - Print Trunk Results
+  ansible.builtin.debug:
+    msg: "{{ trunk_output }}"
