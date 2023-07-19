@@ -1,2 +1,10 @@
 ---
 # tasks file for aruba_cx_create_vlan
+- name: Create VLANs
+  arubanetworks.aoscx.aoscx_vlan:
+    vlan_id: "{{ item.id }}"
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    admin_state: "{{ item.admin_state }}"
+    state: delete
+  loop: "{{ vlans | list }} "
