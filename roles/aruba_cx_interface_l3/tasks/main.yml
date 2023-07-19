@@ -1,0 +1,17 @@
+---
+# tasks file for aruba_cx_interface_l3
+
+- name: TASK I - Create Layer 3 Interface
+  arubanetworks.aoscx.aoscx_l3_interface:
+    state: create
+    interface: "{{ item.name }}"
+    description: "{{ item.description }}"
+    vrf: "{{ item.vrf | default('default') }}"
+    ip_helper_address: "{{ item.ip_helper_address | default(omit) }}"
+  loop: "{{ interfaces | list }}"
+  when: item.type == 'l3'
+  register: output
+
+- name: TASK II - Print Output
+  ansible.builtin.debug:
+    msg: "{{ output }}"
