@@ -1,0 +1,14 @@
+---
+# tasks file for aruba_cx_interface.yml
+- name: TASK I - Create Interface
+  arubanetworks.aoscx.aoscx_interface:
+    state: create
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    enabled: "{{ item.enabled }}"
+  loop: "{{ interfaces | list }}"
+  register: interface_output
+
+- name: TASK II - Print Output
+  ansible.builtin.debug:
+    msg: "{{ interface_output }}"

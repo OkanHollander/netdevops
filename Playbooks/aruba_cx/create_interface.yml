@@ -1,0 +1,7 @@
+---
+
+- name: Create Interface
+  hosts: aruba_cx
+
+  - roles:
+    - aruba_cx_interface
