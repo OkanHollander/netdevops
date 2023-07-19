@@ -1,0 +1,7 @@
+---
+
+- name: Configure DNS Server
+  hosts: aruba_cx
+
+  roles:
+    - role: aruba_cx_dns
